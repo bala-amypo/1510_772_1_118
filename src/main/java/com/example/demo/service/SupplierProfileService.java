@@ -1,12 +1,27 @@
 package com.example.demo.service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.SupplierProfile;
+import com.example.demo.repository.SupplierProfileRepository;
 
-public interface SupplierProfileService {
+@Service   // ⭐ VERY IMPORTANT
+public class SupplierProfileService {
 
-    SupplierProfile createSupplier(SupplierProfile supplier);
+    private final SupplierProfileRepository repository;
 
-    List<SupplierProfile> getAllSuppliers();
+    public SupplierProfileService(SupplierProfileRepository repository) {
+        this.repository = repository;
+    }
+
+    public SupplierProfile createSupplier(SupplierProfile supplier) {
+        return repository.save(supplier);
+    }
+
+    public List<SupplierProfile> getAllSuppliers() {
+        return repository.findAll();
+    }
 }
 
