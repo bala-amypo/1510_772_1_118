@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class SupplierProfile {
@@ -11,15 +10,13 @@ public class SupplierProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name is required")
-    private String name;
+    @NotBlank(message = "Username is required")
+    private String username;
 
-    @NotBlank(message = "Email is required")
-    private String email;
+    @NotBlank(message = "Password is required")
+    private String password;
 
-    @NotNull(message = "Active status is required")
-    private Boolean active;
-
-    // getters & setters
+    // getters and setters
 }
+
 
