@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.SupplierProfile;
 import com.example.demo.repository.SupplierProfileRepository;
 
-
+@Service
 public class SupplierProfileService {
 
     private final SupplierProfileRepository repository;
