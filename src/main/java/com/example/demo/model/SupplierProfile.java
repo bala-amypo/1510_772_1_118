@@ -16,7 +16,7 @@ public class SupplierProfile {
     @NotBlank(message = "Password is required")
     private String password;
 
-    // getters and setters
+    
 }
 
 
