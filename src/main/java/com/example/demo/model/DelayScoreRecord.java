@@ -10,18 +10,15 @@ public class DelayScoreRecord {
 
     private Long poId;
     private Long supplierId;
-    private int score;
+    private double delayScore;
 
-    // Getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // Getter
+    public double getDelayScore() {
+        return delayScore;
+    }
 
-    public Long getPoId() { return poId; }
-    public void setPoId(Long poId) { this.poId = poId; }
-
-    public Long getSupplierId() { return supplierId; }
-    public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
-
-    public int getScore() { return score; }
-    public void setScore(int score) { this.score = score; }
+    // Setter
+    public void setDelayScore(double delayScore) {
+        this.delayScore = delayScore;
+    }
 }
