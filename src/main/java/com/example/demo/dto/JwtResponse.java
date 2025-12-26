@@ -3,18 +3,32 @@ package com.example.demo.dto;
 public class JwtResponse {
 
     private String token;
-    private String username;
+    private String type = "Bearer";
 
-    public JwtResponse(String token, String username) {
+    public JwtResponse() {}
+
+    public JwtResponse(String token) {
         this.token = token;
-        this.username = username;
+    }
+
+    public JwtResponse(String token, String type) {
+        this.token = token;
+        this.type = type;
     }
 
     public String getToken() {
         return token;
     }
 
-    public String getUsername() {
-        return username;
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

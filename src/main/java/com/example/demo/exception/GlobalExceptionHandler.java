@@ -1,26 +1,34 @@
 package com.example.demo.exception;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.example.demo.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationErrors(
-            MethodArgumentNotValidException ex) {
-
-        Map<String, String> errors = new HashMap<>();
-
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-            errors.put(error.getField(), error.getDefaultMessage())
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponse> handleNotFound(ResourceNotFoundException ex) {
+        return new ResponseEntity<>(
+                new ApiResponse(false, ex.getMessage(), null),
+                HttpStatus.NOT_FOUND
         );
+    }
 
-        return errors;
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ApiResponse> handleBadRequest(BadRequestException ex) {
+        return new ResponseEntity<>(
+                new ApiResponse(false, ex.getMessage(), null),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse> handleGeneric(Exception ex) {
+        return new ResponseEntity<>(
+                new ApiResponse(false, "Internal Server Error", null),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 }
