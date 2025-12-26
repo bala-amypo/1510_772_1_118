@@ -1,48 +1,39 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.model.SupplierRiskAlert;
+import com.example.demo.repository.SupplierRiskAlertRepository;
+import com.example.demo.service.SupplierRiskAlertService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class SupplierRiskAlertServiceImpl implements SupplierRiskAlertService {
 
-    private final SupplierRiskAlertRepository repo;
+    private final SupplierRiskAlertRepository repository;
 
-    public SupplierRiskAlertServiceImpl(SupplierRiskAlertRepository repo) {
-        this.repo = repo;
+    public SupplierRiskAlertServiceImpl(SupplierRiskAlertRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public SupplierRiskAlert save(SupplierRiskAlert alert) {
-        alert.setResolved(false);
-        return repo.save(alert);
+    public SupplierRiskAlert createAlert(SupplierRiskAlert alert) {
+        return repository.save(alert);
+    }
+
+    @Override
+    public List<SupplierRiskAlert> getAlertsBySupplier(Long supplierId) {
+        return repository.findBySupplierId(supplierId);
+    }
+
+    @Override
+    public List<SupplierRiskAlert> getAllAlerts() {
+        return repository.findAll();
     }
 
     @Override
     public Optional<SupplierRiskAlert> getById(Long id) {
-        return repo.findById(id);
-    }
-
-    @Override
-    public List<SupplierRiskAlert> getAll() {
-        return repo.findAll();
-    }
-
-    @Override
-    public List<SupplierRiskAlert> getBySupplier(Long supplierId) {
-        return repo.findBySupplierId(supplierId);
-    }
-
-    @Override
-    public SupplierRiskAlert resolveAlert(Long id) {
-        SupplierRiskAlert alert = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Alert not found"));
-        alert.setResolved(true);
-        return repo.save(alert);
-    }
-
-    @Override
-    public void createAlertForSupplier(Long supplierId, String level, String message) {
-        SupplierRiskAlert alert = new SupplierRiskAlert();
-        alert.setSupplierId(supplierId);
-        alert.setAlertLevel(level);
-        alert.setMessage(message);
-        alert.setResolved(false);
-        repo.save(alert);
+        return repository.findById(id);
     }
 }
