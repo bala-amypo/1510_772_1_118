@@ -33,7 +33,7 @@ public class PurchaseOrderController {
 
     @PutMapping("/{id}")
     public PurchaseOrderRecord update(@PathVariable Long id, @RequestBody PurchaseOrderRecord order) {
-        order.setId(id);
+        // ❌ order.setId(id);  ← REMOVE this line
         return service.save(order);
     }
 
