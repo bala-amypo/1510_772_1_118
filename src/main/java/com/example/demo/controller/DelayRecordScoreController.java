@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.DelayRecordScore;
+import com.example.demo.model.DelayScoreRecord;
+
 import com.example.demo.service.DelayRecordScoreService;
 import org.springframework.web.bind.annotation.*;
 

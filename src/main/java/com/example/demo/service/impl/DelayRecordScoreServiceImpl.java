@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.DelayRecordScore;
-import com.example.demo.repository.DelayRecordScoreRepository;
+import com.example.demo.model.DelayScoreRecord;
+import com.example.demo.repository.DelayScoreRecordRepository;
 import com.example.demo.service.DelayRecordScoreService;
 import org.springframework.stereotype.Service;
 
@@ -10,29 +10,33 @@ import java.util.List;
 @Service
 public class DelayRecordScoreServiceImpl implements DelayRecordScoreService {
 
-    private final DelayRecordScoreRepository repository;
+    private final DelayScoreRecordRepository repository;
+    private final DelayScoreServiceImpl delayScoreService;
 
-    public DelayRecordScoreServiceImpl(DelayRecordScoreRepository repository) {
+    public DelayRecordScoreServiceImpl(
+            DelayScoreRecordRepository repository,
+            DelayScoreServiceImpl delayScoreService) {
         this.repository = repository;
+        this.delayScoreService = delayScoreService;
     }
 
     @Override
-    public DelayRecordScore save(DelayRecordScore score) {
-        return repository.save(score);
+    public DelayScoreRecord computeDelayScore(Long poId) {
+        return delayScoreService.computeDelayScore(poId);
     }
 
     @Override
-    public List<DelayRecordScore> findAll() {
-        return repository.findAll();
+    public List<DelayScoreRecord> getScoresBySupplier(Long supplierId) {
+        return repository.findBySupplierId(supplierId);
     }
 
     @Override
-    public DelayRecordScore findById(Long id) {
+    public DelayScoreRecord getScoreById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public List<DelayScoreRecord> getAllScores() {
+        return repository.findAll();
     }
 }
