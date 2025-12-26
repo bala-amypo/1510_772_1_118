@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DelayScoreRecordRepository extends JpaRepository<DelayScoreRecord, Long> {
+public interface DelayScoreRecordRepository
+        extends JpaRepository<DelayScoreRecord, Long> {
 }

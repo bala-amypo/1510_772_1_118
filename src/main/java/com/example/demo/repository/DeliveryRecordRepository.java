@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeliveryRecordRepository
         extends JpaRepository<DeliveryRecord, Long> {
-
-    List<DeliveryRecord> findByPoId(Long poId);
 }
+
