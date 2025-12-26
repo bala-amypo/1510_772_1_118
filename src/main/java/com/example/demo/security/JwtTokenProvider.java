@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -16,10 +17,10 @@ public class JwtTokenProvider {
     private final long validityInMs;
 
     public JwtTokenProvider(
-            @Value("${app.jwt.secret}") String secret,
-            @Value("${app.jwt.expiration-ms}") long validityInMs) {
+            @Value("${app.jwt.secret:DefaultSecretKeyWhichIsLongEnough1234567890}") String secret,
+            @Value("${app.jwt.expiration-ms:3600000}") long validityInMs) {
 
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.validityInMs = validityInMs;
     }
 
