@@ -5,9 +5,13 @@ import java.util.List;
 
 public interface SupplierProfileService {
 
-    SupplierProfile save(SupplierProfile profile);
+    SupplierProfile createSupplier(SupplierProfile supplier);
 
-    SupplierProfile getById(Long id);
+    SupplierProfile getSupplierById(Long id);
 
-    List<SupplierProfile> getAll();
+    List<SupplierProfile> getAllSuppliers();
+
+    SupplierProfile updateSupplierStatus(Long id, boolean active);
+
+    SupplierProfile getBySupplierCode(String code);
 }

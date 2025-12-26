@@ -17,17 +17,32 @@ public class SupplierProfileServiceImpl implements SupplierProfileService {
     }
 
     @Override
-    public SupplierProfile save(SupplierProfile profile) {
-        return repository.save(profile);
+    public SupplierProfile createSupplier(SupplierProfile supplier) {
+        return repository.save(supplier);
     }
 
     @Override
-    public SupplierProfile getById(Long id) {
+    public SupplierProfile getSupplierById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public List<SupplierProfile> getAll() {
+    public List<SupplierProfile> getAllSuppliers() {
         return repository.findAll();
+    }
+
+    @Override
+    public SupplierProfile updateSupplierStatus(Long id, boolean active) {
+        SupplierProfile supplier = getSupplierById(id);
+        if (supplier != null) {
+            supplier.setActive(active);
+            return repository.save(supplier);
+        }
+        return null;
+    }
+
+    @Override
+    public SupplierProfile getBySupplierCode(String code) {
+        return repository.findBySupplierCode(code).orElse(null);
     }
 }
