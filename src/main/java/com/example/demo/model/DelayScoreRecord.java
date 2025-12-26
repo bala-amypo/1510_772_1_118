@@ -10,9 +10,9 @@ public class DelayScoreRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long supplierId; // <-- add this
+    private Long supplierId;
     private int delayDays;
-    private double score;
+    private double delayScore;   // <-- field that controller is calling
     private LocalDateTime computedAt = LocalDateTime.now();
 
     // getters and setters
@@ -24,11 +24,11 @@ public class DelayScoreRecord {
         this.id = id;
     }
 
-    public Long getSupplierId() {   // <-- add this
+    public Long getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(Long supplierId) {  // <-- add this
+    public void setSupplierId(Long supplierId) {
         this.supplierId = supplierId;
     }
 
@@ -40,12 +40,12 @@ public class DelayScoreRecord {
         this.delayDays = delayDays;
     }
 
-    public double getScore() {
-        return score;
+    public double getDelayScore() {  // <-- add this getter
+        return delayScore;
     }
 
-    public void setScore(double score) {
-        this.score = score;
+    public void setDelayScore(double delayScore) {  // <-- add this setter
+        this.delayScore = delayScore;
     }
 
     public LocalDateTime getComputedAt() {
