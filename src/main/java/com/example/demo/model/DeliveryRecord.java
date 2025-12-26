@@ -5,20 +5,33 @@ import java.time.LocalDate;
 
 @Entity
 public class DeliveryRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String deliveryNumber;
-    private LocalDate deliveryDate;
-    private Boolean delivered;
+    private Long deliveryId;
 
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getDeliveryNumber() { return deliveryNumber; }
-    public void setDeliveryNumber(String deliveryNumber) { this.deliveryNumber = deliveryNumber; }
-    public LocalDate getDeliveryDate() { return deliveryDate; }
-    public void setDeliveryDate(LocalDate deliveryDate) { this.deliveryDate = deliveryDate; }
-    public Boolean getDelivered() { return delivered; }
-    public void setDelivered(Boolean delivered) { this.delivered = delivered; }
+    private Long poId;
+    private LocalDate actualDeliveryDate;
+
+    // Getters and Setters
+    public Long getDeliveryId() {
+        return deliveryId;
+    }
+    public void setDeliveryId(Long deliveryId) {
+        this.deliveryId = deliveryId;
+    }
+
+    public Long getPoId() {
+        return poId;
+    }
+    public void setPoId(Long poId) {
+        this.poId = poId;
+    }
+
+    public LocalDate getActualDeliveryDate() {
+        return actualDeliveryDate;
+    }
+    public void setActualDeliveryDate(LocalDate actualDeliveryDate) {
+        this.actualDeliveryDate = actualDeliveryDate;
+    }
 }

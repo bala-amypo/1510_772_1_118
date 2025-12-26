@@ -16,55 +16,45 @@ public class PurchaseOrderRecord {
     private LocalDate issuedDate;
     private LocalDate promisedDeliveryDate;
 
-    // Default constructor
-    public PurchaseOrderRecord() {}
-
-    // Getters
+    // Getters and Setters
     public Long getPoId() {
         return poId;
+    }
+    public void setPoId(Long poId) {
+        this.poId = poId;
     }
 
     public Long getSupplierId() {
         return supplierId;
     }
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
+    }
 
     public String getPoNumber() {
         return poNumber;
+    }
+    public void setPoNumber(String poNumber) {
+        this.poNumber = poNumber;
     }
 
     public int getQuantity() {
         return quantity;
     }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public LocalDate getIssuedDate() {
         return issuedDate;
+    }
+    public void setIssuedDate(LocalDate issuedDate) {
+        this.issuedDate = issuedDate;
     }
 
     public LocalDate getPromisedDeliveryDate() {
         return promisedDeliveryDate;
     }
-
-    // Setters
-    public void setPoId(Long poId) {
-        this.poId = poId;
-    }
-
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public void setPoNumber(String poNumber) {
-        this.poNumber = poNumber;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setIssuedDate(LocalDate issuedDate) {
-        this.issuedDate = issuedDate;
-    }
-
     public void setPromisedDeliveryDate(LocalDate promisedDeliveryDate) {
         this.promisedDeliveryDate = promisedDeliveryDate;
     }

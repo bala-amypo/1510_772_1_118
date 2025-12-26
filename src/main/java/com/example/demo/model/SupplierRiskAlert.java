@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class SupplierRiskAlert {
@@ -11,52 +10,27 @@ public class SupplierRiskAlert {
     private Long id;
 
     private Long supplierId;
-    private String alertType;
-    private String alertMessage;
-    private LocalDateTime alertDate = LocalDateTime.now();
+    private String message;
 
-    // Default constructor
-    public SupplierRiskAlert() {}
-
-    // Getters
+    // Getters and Setters
     public Long getId() {
         return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getSupplierId() {
         return supplierId;
     }
-
-    public String getAlertType() {
-        return alertType;
-    }
-
-    public String getAlertMessage() {
-        return alertMessage;
-    }
-
-    public LocalDateTime getAlertDate() {
-        return alertDate;
-    }
-
-    // Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setSupplierId(Long supplierId) {
         this.supplierId = supplierId;
     }
 
-    public void setAlertType(String alertType) {
-        this.alertType = alertType;
+    public String getMessage() {
+        return message;
     }
-
-    public void setAlertMessage(String alertMessage) {
-        this.alertMessage = alertMessage;
-    }
-
-    public void setAlertDate(LocalDateTime alertDate) {
-        this.alertDate = alertDate;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
