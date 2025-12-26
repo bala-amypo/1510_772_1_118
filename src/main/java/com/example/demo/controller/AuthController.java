@@ -28,9 +28,10 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
         AppUser user = new AppUser();
+        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.valueOf(request.getRole().toUpperCase())); // FIX
+        user.setRole(Role.valueOf(request.getRole()));
 
         AppUser saved = userRepository.save(user);
         return jwtTokenProvider.generateToken(saved);
@@ -38,8 +39,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest request) {
-        AppUser user = userRepository.findByEmail(request.getEmail())
+        AppUser user = userRepository.findByEmail(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+
         return jwtTokenProvider.generateToken(user);
     }
 }
