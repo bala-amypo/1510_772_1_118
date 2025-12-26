@@ -11,42 +11,21 @@ public class DeliveryRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long supplierId;
-
-    @Column(nullable = false)
+    private Long poId;
     private Integer delayDays;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public DeliveryRecord() {}
 
-    public DeliveryRecord(Long supplierId, Integer delayDays) {
-        this.supplierId = supplierId;
-        this.delayDays = delayDays;
-    }
+    public Long getId() { return id; }
+    public Long getSupplierId() { return supplierId; }
+    public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getPoId() { return poId; }
+    public void setPoId(Long poId) { this.poId = poId; }
 
-    public Long getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public Integer getDelayDays() {
-        return delayDays;
-    }
-
-    public void setDelayDays(Integer delayDays) {
-        this.delayDays = delayDays;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public Integer getDelayDays() { return delayDays; }
+    public void setDelayDays(Integer delayDays) { this.delayDays = delayDays; }
 }
