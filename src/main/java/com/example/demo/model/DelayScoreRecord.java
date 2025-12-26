@@ -10,67 +10,34 @@ public class DelayScoreRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long supplierId;   // <- make sure this exists
+    private Long supplierId;
     private Long poId;
     private int delayDays;
     private String delaySeverity;
-    private double score;
+    private double delayScore;  // the field that the controller wants
     private LocalDateTime computedAt = LocalDateTime.now();
 
-    // ---------- Add getters and setters ----------
-    public Long getId() {
-        return id;
-    }
+    // Default constructor
+    public DelayScoreRecord() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // Getters & Setters
+    public Long getId() { return id; }
 
-    public Long getSupplierId() {   // <- This getter is required
-        return supplierId;
-    }
+    public Long getSupplierId() { return supplierId; }
+    public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
 
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
+    public Long getPoId() { return poId; }
+    public void setPoId(Long poId) { this.poId = poId; }
 
-    public Long getPoId() {
-        return poId;
-    }
+    public int getDelayDays() { return delayDays; }
+    public void setDelayDays(int delayDays) { this.delayDays = delayDays; }
 
-    public void setPoId(Long poId) {
-        this.poId = poId;
-    }
+    public String getDelaySeverity() { return delaySeverity; }
+    public void setDelaySeverity(String delaySeverity) { this.delaySeverity = delaySeverity; }
 
-    public int getDelayDays() {
-        return delayDays;
-    }
+    public double getDelayScore() { return delayScore; }  // ✅ getter your controller needs
+    public void setDelayScore(double delayScore) { this.delayScore = delayScore; }
 
-    public void setDelayDays(int delayDays) {
-        this.delayDays = delayDays;
-    }
-
-    public String getDelaySeverity() {
-        return delaySeverity;
-    }
-
-    public void setDelaySeverity(String delaySeverity) {
-        this.delaySeverity = delaySeverity;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public LocalDateTime getComputedAt() {
-        return computedAt;
-    }
-
-    public void setComputedAt(LocalDateTime computedAt) {
-        this.computedAt = computedAt;
-    }
+    public LocalDateTime getComputedAt() { return computedAt; }
+    public void setComputedAt(LocalDateTime computedAt) { this.computedAt = computedAt; }
 }
