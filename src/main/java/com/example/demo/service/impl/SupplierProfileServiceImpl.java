@@ -18,22 +18,31 @@ public class SupplierProfileServiceImpl implements SupplierProfileService {
     }
 
     @Override
-    public SupplierProfile save(SupplierProfile supplier) {
+    public SupplierProfile createSupplier(SupplierProfile supplier) {
         return repository.save(supplier);
     }
 
     @Override
-    public List<SupplierProfile> findAll() {
+    public List<SupplierProfile> getAllSuppliers() {
         return repository.findAll();
     }
 
     @Override
-    public Optional<SupplierProfile> findById(Long id) {
+    public Optional<SupplierProfile> getSupplierById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteSupplier(Long id) {
         repository.deleteById(id);
     }
 }
+
+
+
+
+
+
+
+
+
