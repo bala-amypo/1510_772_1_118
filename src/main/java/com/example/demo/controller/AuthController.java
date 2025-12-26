@@ -27,6 +27,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
+
         AppUser user = new AppUser();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
@@ -39,6 +40,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest request) {
+
         AppUser user = userRepository.findByEmail(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 

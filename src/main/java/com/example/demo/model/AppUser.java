@@ -8,16 +8,6 @@ public class AppUser {
     private String password;
     private Role role;
 
-    public AppUser() {
-    }
-
-    public AppUser(String username, String email, String password, Role role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
     public Long getId() {
         return id;
     }

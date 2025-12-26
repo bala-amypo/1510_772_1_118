@@ -6,15 +6,9 @@ public class SupplierRiskAlert {
     private Long supplierId;
     private String alertLevel;
     private String message;
-    private boolean resolved;
+    private Boolean resolved;
 
     public SupplierRiskAlert() {
-    }
-
-    public SupplierRiskAlert(Long supplierId, String alertLevel, String message) {
-        this.supplierId = supplierId;
-        this.alertLevel = alertLevel;
-        this.message = message;
         this.resolved = false;
     }
 
@@ -50,11 +44,11 @@ public class SupplierRiskAlert {
         this.message = message;
     }
 
-    public boolean isResolved() {
+    public Boolean getResolved() {
         return resolved;
     }
 
-    public void setResolved(boolean resolved) {
+    public void setResolved(Boolean resolved) {
         this.resolved = resolved;
     }
 }
