@@ -5,20 +5,67 @@ import java.time.LocalDate;
 
 @Entity
 public class PurchaseOrderRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String orderNumber;
-    private LocalDate orderDate;
-    private Double amount;
+    private Long poId;
 
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getOrderNumber() { return orderNumber; }
-    public void setOrderNumber(String orderNumber) { this.orderNumber = orderNumber; }
-    public LocalDate getOrderDate() { return orderDate; }
-    public void setOrderDate(LocalDate orderDate) { this.orderDate = orderDate; }
-    public Double getAmount() { return amount; }
-    public void setAmount(Double amount) { this.amount = amount; }
+    private Long supplierId;
+    private String poNumber;
+    private int quantity;
+    private LocalDate issuedDate;
+    private LocalDate promisedDeliveryDate;
+
+    // Default constructor
+    public PurchaseOrderRecord() {}
+
+    // Getters
+    public Long getPoId() {
+        return poId;
+    }
+
+    public Long getSupplierId() {
+        return supplierId;
+    }
+
+    public String getPoNumber() {
+        return poNumber;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public LocalDate getIssuedDate() {
+        return issuedDate;
+    }
+
+    public LocalDate getPromisedDeliveryDate() {
+        return promisedDeliveryDate;
+    }
+
+    // Setters
+    public void setPoId(Long poId) {
+        this.poId = poId;
+    }
+
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public void setPoNumber(String poNumber) {
+        this.poNumber = poNumber;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setIssuedDate(LocalDate issuedDate) {
+        this.issuedDate = issuedDate;
+    }
+
+    public void setPromisedDeliveryDate(LocalDate promisedDeliveryDate) {
+        this.promisedDeliveryDate = promisedDeliveryDate;
+    }
 }
