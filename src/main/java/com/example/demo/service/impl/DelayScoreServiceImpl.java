@@ -1,43 +1,42 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.DelayScore;
-import com.example.demo.repository.DelayScoreRepository;
-import com.example.demo.service.DelayScoreService;
+import com.example.demo.model.DelayRecordScore;
+import com.example.demo.repository.DelayRecordScoreRepository;
+import com.example.demo.service.DelayRecordScoreService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DelayScoreServiceImpl implements DelayScoreService {
+public class DelayRecordScoreServiceImpl implements DelayRecordScoreService {
 
-    private final DelayScoreRepository repository;
+    private final DelayRecordScoreRepository repository;
 
-    public DelayScoreServiceImpl(DelayScoreRepository repository) {
+    public DelayRecordScoreServiceImpl(DelayRecordScoreRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public DelayScore computeDelayScore(Long supplierId) {
-        DelayScore score = new DelayScore();
+    public DelayRecordScore computeDelayScore(Long supplierId) {
+        DelayRecordScore score = new DelayRecordScore();
         score.setSupplierId(supplierId);
         score.setScore(Math.random() * 100);
         return repository.save(score);
     }
 
     @Override
-    public List<DelayScore> getScoresBySupplier(Long supplierId) {
+    public List<DelayRecordScore> getScoresBySupplier(Long supplierId) {
         return repository.findBySupplierId(supplierId);
     }
 
     @Override
-    public DelayScore getScoreById(Long id) {
+    public DelayRecordScore getScoreById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("DelayScore not found"));
+                .orElseThrow(() -> new RuntimeException("DelayRecordScore not found"));
     }
 
     @Override
-    public List<DelayScore> getAllScores() {
+    public List<DelayRecordScore> getAllScores() {
         return repository.findAll();
     }
 }
-    

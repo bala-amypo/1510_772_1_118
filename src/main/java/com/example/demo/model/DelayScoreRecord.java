@@ -3,8 +3,8 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "delay_scores")
-public class DelayScore {
+@Table(name = "delay_record_scores")
+public class DelayRecordScore {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class DelayScore {
     @Column(nullable = false)
     private Double score;
 
-    public DelayScore() {}
+    public DelayRecordScore() {}
 
     public Long getId() {
         return id;
