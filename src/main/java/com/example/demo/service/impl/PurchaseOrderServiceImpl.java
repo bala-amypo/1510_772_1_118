@@ -2,38 +2,27 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.PurchaseOrderRecord;
 import com.example.demo.repository.PurchaseOrderRecordRepository;
-import com.example.demo.service.PurchaseOrderService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
-public class PurchaseOrderServiceImpl implements PurchaseOrderService {
+public class PurchaseOrderServiceImpl {
 
-    private final PurchaseOrderRecordRepository repository;
+    private final PurchaseOrderRecordRepository repo;
 
-    public PurchaseOrderServiceImpl(PurchaseOrderRecordRepository repository) {
-        this.repository = repository;
+    public PurchaseOrderServiceImpl(PurchaseOrderRecordRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public List<PurchaseOrderRecord> getAll() {
-        return repository.findAll();
+    public PurchaseOrderRecord createPurchaseOrder(PurchaseOrderRecord po) {
+        return repo.save(po);
     }
 
-    @Override
-    public PurchaseOrderRecord getById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("PurchaseOrder not found with id " + id));
+    public List<PurchaseOrderRecord> getPOsBySupplier(long supplierId) {
+        return repo.findBySupplierId(supplierId);
     }
 
-    @Override
-    public PurchaseOrderRecord save(PurchaseOrderRecord order) {
-        return repository.save(order);
-    }
-
-    @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public PurchaseOrderRecord getPOById(long id) {
+        return repo.findById(id).orElse(null);
     }
 }

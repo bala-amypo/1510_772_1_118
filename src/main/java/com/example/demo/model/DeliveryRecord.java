@@ -14,6 +14,19 @@ public class DeliveryRecord {
     private int deliveredQuantity;
     private LocalDate actualDeliveryDate;
 
+    // ➕ compatibility getters
+    public Long getDeliveryNumber() {
+        return id;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return actualDeliveryDate;
+    }
+
+    public int getDelivered() {
+        return deliveredQuantity;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

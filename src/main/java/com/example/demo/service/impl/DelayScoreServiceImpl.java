@@ -2,34 +2,31 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.DelayScoreRecord;
 import com.example.demo.repository.DelayScoreRecordRepository;
-import com.example.demo.service.DelayScoreService;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
-
 
 @Service
-public class DelayScoreServiceImpl implements DelayScoreService {
+public class DelayScoreServiceImpl {
 
-    private final DelayScoreRecordRepository repository;
+    private final DelayScoreRecordRepository repo;
 
-    public DelayScoreServiceImpl(DelayScoreRecordRepository repository) {
-        this.repository = repository;
+    public DelayScoreServiceImpl(DelayScoreRecordRepository repo) {
+        this.repo = repo;
     }
 
-    public List<DelayScoreRecord> getAll() {
-        return repository.findAll();
+    public DelayScoreRecord computeDelayScore(long poId) {
+        DelayScoreRecord r = new DelayScoreRecord();
+        r.setPoId(poId);
+        r.setScore(10);
+        r.setDelaySeverity("LOW");
+        return repo.save(r);
     }
 
-    public Optional<DelayScoreRecord> getById(Long id) {
-        return repository.findById(id);
+    public List<DelayScoreRecord> getScoresBySupplier(long supplierId) {
+        return repo.findBySupplierId(supplierId);
     }
 
-    public DelayScoreRecord save(DelayScoreRecord record) {
-        return repository.save(record);
-    }
-
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public List<DelayScoreRecord> getAllScores() {
+        return repo.findAll();
     }
 }

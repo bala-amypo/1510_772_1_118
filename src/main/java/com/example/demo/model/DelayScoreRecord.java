@@ -14,6 +14,11 @@ public class DelayScoreRecord {
     private int score;
     private String delaySeverity;
 
+    // ➕ add this derived getter
+    public int getDelayScore() {
+        return score;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
