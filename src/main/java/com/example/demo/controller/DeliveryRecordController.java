@@ -23,7 +23,8 @@ public class DeliveryRecordController {
 
     @GetMapping("/{id}")
     public DeliveryRecord getById(@PathVariable Long id) {
-        return service.getById(id);
+       return service.getById(id).orElseThrow();
+
     }
 
     @GetMapping("/supplier/{supplierId}")
