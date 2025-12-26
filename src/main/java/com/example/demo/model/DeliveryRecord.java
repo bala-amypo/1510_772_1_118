@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "delivery_records")
@@ -13,19 +13,19 @@ public class DeliveryRecord {
 
     private Long supplierId;
     private Long poId;
-    private Integer delayDays;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    public DeliveryRecord() {}
+    private LocalDate actualDeliveryDate;
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public Long getSupplierId() { return supplierId; }
     public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
 
     public Long getPoId() { return poId; }
     public void setPoId(Long poId) { this.poId = poId; }
 
-    public Integer getDelayDays() { return delayDays; }
-    public void setDelayDays(Integer delayDays) { this.delayDays = delayDays; }
+    public LocalDate getActualDeliveryDate() { return actualDeliveryDate; }
+    public void setActualDeliveryDate(LocalDate actualDeliveryDate) {
+        this.actualDeliveryDate = actualDeliveryDate;
+    }
 }

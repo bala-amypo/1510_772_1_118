@@ -6,10 +6,8 @@ import java.util.List;
 public interface SupplierRiskAlertService {
 
     SupplierRiskAlert createAlert(SupplierRiskAlert alert);
-
+    SupplierRiskAlert resolveAlert(Long id);
     SupplierRiskAlert getById(Long id);
-
-    List<SupplierRiskAlert> getAllAlerts();
-
     List<SupplierRiskAlert> getAlertsBySupplier(Long supplierId);
+    List<SupplierRiskAlert> getAllAlerts();
 }
