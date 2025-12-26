@@ -10,27 +10,18 @@ public class PurchaseOrderRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long supplierId;
-    private int quantity;
-    private String poNumber;
-    private LocalDate promisedDeliveryDate;
-    private LocalDate issuedDate;
+    private String orderNumber;
+    private LocalDate orderDate;
+    private double amount;
 
-    // ✅ getters & setters
     public Long getId() { return id; }
 
-    public Long getSupplierId() { return supplierId; }
-    public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
+    public String getOrderNumber() { return orderNumber; }
+    public void setOrderNumber(String orderNumber) { this.orderNumber = orderNumber; }
 
-    public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public LocalDate getOrderDate() { return orderDate; }
+    public void setOrderDate(LocalDate orderDate) { this.orderDate = orderDate; }
 
-    public String getPoNumber() { return poNumber; }
-    public void setPoNumber(String poNumber) { this.poNumber = poNumber; }
-
-    public LocalDate getPromisedDeliveryDate() { return promisedDeliveryDate; }
-    public void setPromisedDeliveryDate(LocalDate d) { this.promisedDeliveryDate = d; }
-
-    public LocalDate getIssuedDate() { return issuedDate; }
-    public void setIssuedDate(LocalDate d) { this.issuedDate = d; }
+    public double getAmount() { return amount; }
+    public void setAmount(double amount) { this.amount = amount; }
 }
