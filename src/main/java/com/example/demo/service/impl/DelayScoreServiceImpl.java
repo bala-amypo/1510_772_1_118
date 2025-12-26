@@ -62,7 +62,9 @@ public class DelayScoreServiceImpl implements DelayScoreService {
                 delivery.getActualDeliveryDate()
         );
 
-        if (delayDays < 0) delayDays = 0;
+        if (delayDays < 0) {
+            delayDays = 0;
+        }
 
         String severity;
         if (delayDays == 0) {
@@ -75,7 +77,7 @@ public class DelayScoreServiceImpl implements DelayScoreService {
             severity = "SEVERE";
         }
 
-        double score = Math.max(0, 100 - (delayDays * 5));
+        double score = Math.max(0, 100 - delayDays * 5);
 
         DelayScoreRecord record = new DelayScoreRecord();
         record.setPoId(poId);
