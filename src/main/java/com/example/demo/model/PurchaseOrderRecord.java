@@ -8,54 +8,24 @@ public class PurchaseOrderRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long poId;
+    private Long id;
 
-    private Long supplierId;
-    private String poNumber;
-    private int quantity;
-    private LocalDate issuedDate;
-    private LocalDate promisedDeliveryDate;
+    private String orderNumber;
+    private LocalDate orderDate;
+    private double amount;
+
+    // Default constructor
+    public PurchaseOrderRecord() {}
 
     // Getters and Setters
-    public Long getPoId() {
-        return poId;
-    }
-    public void setPoId(Long poId) {
-        this.poId = poId;
-    }
+    public Long getId() { return id; }
 
-    public Long getSupplierId() {
-        return supplierId;
-    }
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
+    public String getOrderNumber() { return orderNumber; }
+    public void setOrderNumber(String orderNumber) { this.orderNumber = orderNumber; }
 
-    public String getPoNumber() {
-        return poNumber;
-    }
-    public void setPoNumber(String poNumber) {
-        this.poNumber = poNumber;
-    }
+    public LocalDate getOrderDate() { return orderDate; }
+    public void setOrderDate(LocalDate orderDate) { this.orderDate = orderDate; }
 
-    public int getQuantity() {
-        return quantity;
-    }
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public LocalDate getIssuedDate() {
-        return issuedDate;
-    }
-    public void setIssuedDate(LocalDate issuedDate) {
-        this.issuedDate = issuedDate;
-    }
-
-    public LocalDate getPromisedDeliveryDate() {
-        return promisedDeliveryDate;
-    }
-    public void setPromisedDeliveryDate(LocalDate promisedDeliveryDate) {
-        this.promisedDeliveryDate = promisedDeliveryDate;
-    }
+    public double getAmount() { return amount; }
+    public void setAmount(double amount) { this.amount = amount; }
 }

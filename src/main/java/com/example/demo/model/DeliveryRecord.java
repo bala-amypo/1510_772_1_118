@@ -8,30 +8,24 @@ public class DeliveryRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long deliveryId;
+    private Long id;
 
-    private Long poId;
-    private LocalDate actualDeliveryDate;
+    private String deliveryNumber;
+    private LocalDate deliveryDate;
+    private boolean delivered;
+
+    // Default constructor
+    public DeliveryRecord() {}
 
     // Getters and Setters
-    public Long getDeliveryId() {
-        return deliveryId;
-    }
-    public void setDeliveryId(Long deliveryId) {
-        this.deliveryId = deliveryId;
-    }
+    public Long getId() { return id; }
 
-    public Long getPoId() {
-        return poId;
-    }
-    public void setPoId(Long poId) {
-        this.poId = poId;
-    }
+    public String getDeliveryNumber() { return deliveryNumber; }
+    public void setDeliveryNumber(String deliveryNumber) { this.deliveryNumber = deliveryNumber; }
 
-    public LocalDate getActualDeliveryDate() {
-        return actualDeliveryDate;
-    }
-    public void setActualDeliveryDate(LocalDate actualDeliveryDate) {
-        this.actualDeliveryDate = actualDeliveryDate;
-    }
+    public LocalDate getDeliveryDate() { return deliveryDate; }
+    public void setDeliveryDate(LocalDate deliveryDate) { this.deliveryDate = deliveryDate; }
+
+    public boolean getDelivered() { return delivered; }
+    public void setDelivered(boolean delivered) { this.delivered = delivered; }
 }
