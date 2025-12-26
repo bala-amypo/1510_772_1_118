@@ -6,7 +6,6 @@ import com.example.demo.service.PurchaseOrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
@@ -18,22 +17,17 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     @Override
-    public List<PurchaseOrderRecord> getAll() {
-        return repository.findAll();
+    public PurchaseOrderRecord createPurchaseOrder(PurchaseOrderRecord po) {
+        return repository.save(po);
     }
 
     @Override
-    public Optional<PurchaseOrderRecord> getById(Long id) {
-        return repository.findById(id);
+    public PurchaseOrderRecord getPOById(long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
-    public PurchaseOrderRecord save(PurchaseOrderRecord order) {
-        return repository.save(order);
-    }
-
-    @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public List<PurchaseOrderRecord> getPOsBySupplier(long supplierId) {
+        return repository.findBySupplierId(supplierId);
     }
 }
