@@ -9,3 +9,4 @@ public interface SupplierProfileRepository extends JpaRepository<SupplierProfile
 
     Optional<SupplierProfile> findBySupplierCode(String supplierCode);
 }
+
