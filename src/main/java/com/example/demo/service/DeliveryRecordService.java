@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DeliveryRecordService {
-
-    List<DeliveryRecord> getAll();
-
-    Optional<DeliveryRecord> getById(Long id);
-
-    DeliveryRecord save(DeliveryRecord record);
-
-    void delete(Long id);
+    DeliveryRecord recordDelivery(DeliveryRecord delivery);
+    List<DeliveryRecord> getDeliveriesByPO(Long poId);
+    Optional<DeliveryRecord> getDeliveryById(Long id);
+    List<DeliveryRecord> getAllDeliveries();
 }

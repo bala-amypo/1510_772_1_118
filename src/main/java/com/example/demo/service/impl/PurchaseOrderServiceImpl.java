@@ -1,28 +1,48 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.PurchaseOrderRecord;
+import com.example.demo.model.SupplierProfile;
 import com.example.demo.repository.PurchaseOrderRecordRepository;
-import org.springframework.stereotype.Service;
+import com.example.demo.repository.SupplierProfileRepository;
+import com.example.demo.service.PurchaseOrderService;
+
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class PurchaseOrderServiceImpl {
+public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
-    private final PurchaseOrderRecordRepository repo;
+    private final PurchaseOrderRecordRepository poRepo;
+    private final SupplierProfileRepository supplierRepo;
 
-    public PurchaseOrderServiceImpl(PurchaseOrderRecordRepository repo) {
-        this.repo = repo;
+    public PurchaseOrderServiceImpl(PurchaseOrderRecordRepository poRepo, SupplierProfileRepository supplierRepo) {
+        this.poRepo = poRepo;
+        this.supplierRepo = supplierRepo;
     }
 
+    @Override
     public PurchaseOrderRecord createPurchaseOrder(PurchaseOrderRecord po) {
-        return repo.save(po);
+        SupplierProfile s = supplierRepo.findById(po.getSupplierId())
+                .orElseThrow(() -> new BadRequestException("Invalid supplierId"));
+
+        if (!Boolean.TRUE.equals(s.getActive()))
+            throw new BadRequestException("Supplier must be active");
+
+        return poRepo.save(po);
     }
 
-    public List<PurchaseOrderRecord> getPOsBySupplier(long supplierId) {
-        return repo.findBySupplierId(supplierId);
+    @Override
+    public List<PurchaseOrderRecord> getPOsBySupplier(Long supplierId) {
+        return poRepo.findBySupplierId(supplierId);
     }
 
-    public PurchaseOrderRecord getPOById(long id) {
-        return repo.findById(id).orElse(null);
+    @Override
+    public Optional<PurchaseOrderRecord> getPOById(Long id) {
+        return poRepo.findById(id);
+    }
+
+    @Override
+    public List<PurchaseOrderRecord> getAllPurchaseOrders() {
+        return poRepo.findAll();
     }
 }
