@@ -17,30 +17,22 @@ public class SupplierRiskAlertController {
     }
 
     @PostMapping
-    public SupplierRiskAlert create(@RequestBody SupplierRiskAlert a) {
-        return service.createAlert(a);
-    }
-
-    @PutMapping("/{id}/resolve")
-    public SupplierRiskAlert resolve(@PathVariable Long id) {
-        return service.resolveAlert(id);
-    }
-
-    @GetMapping("/supplier/{supplierId}")
-    public List<SupplierRiskAlert> bySupplier(@PathVariable Long supplierId) {
-        return service.getAlertsBySupplier(supplierId);
+    public SupplierRiskAlert create(@RequestBody SupplierRiskAlert alert) {
+        return service.createAlert(alert);
     }
 
     @GetMapping("/{id}")
-    public SupplierRiskAlert get(@PathVariable Long id) {
-        return service.getAllAlerts().stream()
-                .filter(a -> a.getId().equals(id))
-                .findFirst()
-                .orElseThrow();
+    public SupplierRiskAlert getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @GetMapping
     public List<SupplierRiskAlert> getAll() {
         return service.getAllAlerts();
+    }
+
+    @GetMapping("/supplier/{supplierId}")
+    public List<SupplierRiskAlert> getBySupplier(@PathVariable Long supplierId) {
+        return service.getAlertsBySupplier(supplierId);
     }
 }
