@@ -8,7 +8,7 @@ public interface PurchaseOrderService {
 
     List<PurchaseOrderRecord> getAll();
 
-    Optional<PurchaseOrderRecord> getById(Long id); // ⚠️ MUST be Optional
+    Optional<PurchaseOrderRecord> getById(Long id); // ✅ Optional
 
     PurchaseOrderRecord save(PurchaseOrderRecord order);
 
