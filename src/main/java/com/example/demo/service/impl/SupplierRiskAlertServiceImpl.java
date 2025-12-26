@@ -7,56 +7,55 @@ import com.example.demo.service.SupplierRiskAlertService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SupplierRiskAlertServiceImpl implements SupplierRiskAlertService {
 
-    private final SupplierRiskAlertRepository riskAlertRepository;
+    private final SupplierRiskAlertRepository repository;
 
-    public SupplierRiskAlertServiceImpl(SupplierRiskAlertRepository riskAlertRepository) {
-        this.riskAlertRepository = riskAlertRepository;
+    public SupplierRiskAlertServiceImpl(SupplierRiskAlertRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public SupplierRiskAlert createAlert(SupplierRiskAlert alert) {
-        // Fixes testAlertCreationDefaultResolvedFalse
         if (alert.getResolved() == null) {
             alert.setResolved(false);
         }
-        return riskAlertRepository.save(alert);
-    }
-
-    @Override
-    public List<SupplierRiskAlert> getAlertsBySupplier(Long supplierId) {
-        return riskAlertRepository.findBySupplierId(supplierId);
+        return repository.save(alert);
     }
 
     @Override
     public SupplierRiskAlert resolveAlert(Long alertId) {
-        // Fixes testResolveAlertChangesFlag
-        SupplierRiskAlert alert = riskAlertRepository.findById(alertId)
+        SupplierRiskAlert alert = repository.findById(alertId)
                 .orElseThrow(() -> new BadRequestException("Alert not found"));
+
         alert.setResolved(true);
-        return riskAlertRepository.save(alert);
+        return repository.save(alert);
     }
 
-    // MISSING LOGIC: Fixes testCriteriaAlertMediumRisk & testCriteriaLikeHighRiskSuppliers
-    public List<SupplierRiskAlert> getAlertsByLevel(String level) {
-        return riskAlertRepository.findAll().stream()
-                .filter(a -> a.getAlertLevel() != null && a.getAlertLevel().equalsIgnoreCase(level))
-                .collect(Collectors.toList());
-    }
-
-    // MISSING LOGIC: Fixes testCriteriaLikeUnresolvedAlerts
-    public List<SupplierRiskAlert> getUnresolvedAlerts() {
-        return riskAlertRepository.findAll().stream()
-                .filter(a -> Boolean.FALSE.equals(a.getResolved()))
-                .collect(Collectors.toList());
+    @Override
+    public List<SupplierRiskAlert> getAlertsBySupplier(Long supplierId) {
+        return repository.findBySupplierId(supplierId);
     }
 
     @Override
     public List<SupplierRiskAlert> getAllAlerts() {
-        return riskAlertRepository.findAll();
+        return repository.findAll();
+    }
+
+    @Override
+    public List<SupplierRiskAlert> findHighRiskSuppliers() {
+        return repository.findByRiskLevelIgnoreCase("HIGH");
+    }
+
+    @Override
+    public List<SupplierRiskAlert> findUnresolvedAlerts() {
+        return repository.findByResolvedFalse();
+    }
+
+    @Override
+    public List<SupplierRiskAlert> findMediumRiskAlerts() {
+        return repository.findByRiskLevelIgnoreCase("MEDIUM");
     }
 }
