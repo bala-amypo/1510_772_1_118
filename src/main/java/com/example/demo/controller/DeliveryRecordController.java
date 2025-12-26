@@ -5,10 +5,9 @@ import com.example.demo.service.DeliveryRecordService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/deliveries")
+@RequestMapping("/deliveries")
 public class DeliveryRecordController {
 
     private final DeliveryRecordService service;
@@ -18,22 +17,22 @@ public class DeliveryRecordController {
     }
 
     @PostMapping
-    public DeliveryRecord create(@RequestBody DeliveryRecord d) {
-        return service.recordDelivery(d);
+    public DeliveryRecord save(@RequestBody DeliveryRecord record) {
+        return service.save(record);
+    }
+
+    @GetMapping("/{id}")
+    public DeliveryRecord get(@PathVariable Long id) {
+        return service.getById(id);
+    }
+
+    @GetMapping
+    public List<DeliveryRecord> all() {
+        return service.getAll();
     }
 
     @GetMapping("/po/{poId}")
     public List<DeliveryRecord> byPo(@PathVariable Long poId) {
-        return service.getDeliveriesByPO(poId);
-    }
-
-    @GetMapping("/{id}")
-    public Optional<DeliveryRecord> get(@PathVariable Long id) {
-        return service.getDeliveryById(id);
-    }
-
-    @GetMapping
-    public List<DeliveryRecord> getAll() {
-        return service.getAllDeliveries();
+        return service.getByPurchaseOrder(poId);
     }
 }
