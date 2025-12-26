@@ -1,31 +1,16 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity
 public class DeliveryRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long poId;
-    private int deliveredQuantity;
     private LocalDate actualDeliveryDate;
+    private Integer deliveredQuantity;
+    private String notes;
 
-    // ➕ compatibility getters
-    public Long getDeliveryNumber() {
-        return id;
-    }
-
-    public LocalDate getDeliveryDate() {
-        return actualDeliveryDate;
-    }
-
-    public int getDelivered() {
-        return deliveredQuantity;
-    }
+    public DeliveryRecord() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -33,9 +18,12 @@ public class DeliveryRecord {
     public Long getPoId() { return poId; }
     public void setPoId(Long poId) { this.poId = poId; }
 
-    public int getDeliveredQuantity() { return deliveredQuantity; }
-    public void setDeliveredQuantity(int deliveredQuantity) { this.deliveredQuantity = deliveredQuantity; }
-
     public LocalDate getActualDeliveryDate() { return actualDeliveryDate; }
     public void setActualDeliveryDate(LocalDate actualDeliveryDate) { this.actualDeliveryDate = actualDeliveryDate; }
+
+    public Integer getDeliveredQuantity() { return deliveredQuantity; }
+    public void setDeliveredQuantity(Integer deliveredQuantity) { this.deliveredQuantity = deliveredQuantity; }
+
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 }
