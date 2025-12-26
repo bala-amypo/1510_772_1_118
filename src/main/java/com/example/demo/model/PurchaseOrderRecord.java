@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "purchase_orders")
-public class PurchaseOrder {
+public class PurchaseOrderRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class PurchaseOrder {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public PurchaseOrder() {}
+    public PurchaseOrderRecord() {}
 
     public Long getId() { return id; }
 
