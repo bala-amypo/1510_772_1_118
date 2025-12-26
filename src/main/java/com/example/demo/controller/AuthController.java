@@ -2,48 +2,28 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.AppUser;
-import com.example.demo.model.Role;
-import com.example.demo.repository.AppUserRepository;
-import com.example.demo.security.JwtTokenProvider;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.example.demo.dto.ApiResponse;
+import com.example.demo.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AppUserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
-
-    public AuthController(AppUserRepository userRepository,
-                          PasswordEncoder passwordEncoder,
-                          JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    @Autowired
+    private AuthService authService;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
-
-        AppUser user = new AppUser();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.valueOf(request.getRole()));
-
-        AppUser saved = userRepository.save(user);
-        return jwtTokenProvider.generateToken(saved);
+    public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequest request) {
+        ApiResponse response = authService.register(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
-
-        AppUser user = userRepository.findByEmail(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
-
-        return jwtTokenProvider.generateToken(user);
+    public ResponseEntity<ApiResponse> login(@RequestBody LoginRequest request) {
+        ApiResponse response = authService.login(request);
+        return ResponseEntity.ok(response);
     }
 }

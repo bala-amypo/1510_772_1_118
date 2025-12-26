@@ -2,37 +2,35 @@ package com.example.demo.controller;
 
 import com.example.demo.model.PurchaseOrderRecord;
 import com.example.demo.service.PurchaseOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/purchase-orders")
 public class PurchaseOrderController {
 
-    private final PurchaseOrderService purchaseOrderService;
-
-    public PurchaseOrderController(PurchaseOrderService purchaseOrderService) {
-        this.purchaseOrderService = purchaseOrderService;
-    }
+    @Autowired
+    private PurchaseOrderService purchaseOrderService;
 
     @PostMapping
-    public PurchaseOrderRecord create(@RequestBody PurchaseOrderRecord po) {
-        return purchaseOrderService.createPurchaseOrder(po);
+    public ResponseEntity<PurchaseOrderRecord> createPO(@RequestBody PurchaseOrderRecord po) {
+        PurchaseOrderRecord created = purchaseOrderService.createPurchaseOrder(po);
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping("/{id}")
-    public PurchaseOrderRecord getById(@PathVariable Long id) {
-        return purchaseOrderService.getPOById(id).orElse(null);
+    public ResponseEntity<PurchaseOrderRecord> getPO(@PathVariable Long id) {
+        Optional<PurchaseOrderRecord> po = purchaseOrderService.getPOById(id);
+        return po.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/supplier/{supplierId}")
-    public List<PurchaseOrderRecord> getBySupplier(@PathVariable Long supplierId) {
-        return purchaseOrderService.getPOsBySupplier(supplierId);
-    }
-
-    @GetMapping
-    public List<PurchaseOrderRecord> getAll() {
-        return purchaseOrderService.getAllPurchaseOrders();
+    public ResponseEntity<List<PurchaseOrderRecord>> getPOsBySupplier(@PathVariable Long supplierId) {
+        List<PurchaseOrderRecord> pos = purchaseOrderService.getPOsBySupplier(supplierId);
+        return ResponseEntity.ok(pos);
     }
 }
