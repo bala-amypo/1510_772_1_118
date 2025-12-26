@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface PurchaseOrderRecordService {
 
-    PurchaseOrderRecord createPurchaseOrder(PurchaseOrderRecord po);
+    PurchaseOrderRecord save(PurchaseOrderRecord po);
 
-    List<PurchaseOrderRecord> getPOsBySupplier(Long supplierId);
+    Optional<PurchaseOrderRecord> getById(Long id);
 
-    Optional<PurchaseOrderRecord> getPOById(Long id);
+    List<PurchaseOrderRecord> getBySupplier(Long supplierId);
 
-    List<PurchaseOrderRecord> getAllPurchaseOrders();
+    List<PurchaseOrderRecord> getAll();
 }
