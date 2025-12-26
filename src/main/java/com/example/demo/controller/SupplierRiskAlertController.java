@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.SupplierRiskAlert;
 import com.example.demo.service.SupplierRiskAlertService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,29 +12,24 @@ import java.util.List;
 @RequestMapping("/api/risk-alerts")
 public class SupplierRiskAlertController {
 
-    private final SupplierRiskAlertService supplierRiskAlertService;
-
-    public SupplierRiskAlertController(SupplierRiskAlertService supplierRiskAlertService) {
-        this.supplierRiskAlertService = supplierRiskAlertService;
-    }
+    @Autowired
+    private SupplierRiskAlertService riskAlertService;
 
     @PostMapping
-    public SupplierRiskAlert create(@RequestBody SupplierRiskAlert alert) {
-        return supplierRiskAlertService.createAlert(alert);
+    public ResponseEntity<SupplierRiskAlert> createAlert(@RequestBody SupplierRiskAlert alert) {
+        SupplierRiskAlert created = riskAlertService.createAlert(alert);
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping("/supplier/{supplierId}")
-    public List<SupplierRiskAlert> getBySupplier(@PathVariable Long supplierId) {
-        return supplierRiskAlertService.getAlertsBySupplier(supplierId);
+    public ResponseEntity<List<SupplierRiskAlert>> getAlertsBySupplier(@PathVariable Long supplierId) {
+        List<SupplierRiskAlert> alerts = riskAlertService.getAlertsBySupplier(supplierId);
+        return ResponseEntity.ok(alerts);
     }
 
-    @PutMapping("/{id}/resolve")
-    public SupplierRiskAlert resolve(@PathVariable Long id) {
-        return supplierRiskAlertService.resolveAlert(id);
-    }
-
-    @GetMapping
-    public List<SupplierRiskAlert> getAll() {
-        return supplierRiskAlertService.getAllAlerts();
+    @PutMapping("/{alertId}/resolve")
+    public ResponseEntity<SupplierRiskAlert> resolveAlert(@PathVariable Long alertId) {
+        SupplierRiskAlert resolved = riskAlertService.resolveAlert(alertId);
+        return ResponseEntity.ok(resolved);
     }
 }
