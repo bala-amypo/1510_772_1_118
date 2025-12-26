@@ -17,12 +17,17 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     @Override
-    public List<PurchaseOrderRecord> getAllOrders() {
+    public List<PurchaseOrderRecord> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public PurchaseOrderRecord createOrder(PurchaseOrderRecord order) {
+    public PurchaseOrderRecord getById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public PurchaseOrderRecord save(PurchaseOrderRecord order) {
         return repository.save(order);
     }
 

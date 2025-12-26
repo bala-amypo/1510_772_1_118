@@ -5,9 +5,11 @@ import java.util.List;
 
 public interface PurchaseOrderService {
 
-    List<PurchaseOrderRecord> getAllOrders();
+    List<PurchaseOrderRecord> getAll();
 
-    PurchaseOrderRecord createOrder(PurchaseOrderRecord order);
+    PurchaseOrderRecord getById(Long id);
+
+    PurchaseOrderRecord save(PurchaseOrderRecord order);
 
     void delete(Long id);
 }
