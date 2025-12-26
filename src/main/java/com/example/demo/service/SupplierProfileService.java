@@ -1,27 +1,16 @@
 package com.example.demo.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.model.SupplierProfile;
-import com.example.demo.repository.SupplierProfileRepository;
+import java.util.List;
+import java.util.Optional;
 
-@Service
-public class SupplierProfileService {
+public interface SupplierProfileService {
 
-    private final SupplierProfileRepository repository;
+    SupplierProfile save(SupplierProfile supplier);
 
-    public SupplierProfileService(SupplierProfileRepository repository) {
-        this.repository = repository;
-    }
+    List<SupplierProfile> findAll();
 
-    public SupplierProfile createSupplier(SupplierProfile supplier) {
-        return repository.save(supplier);
-    }
+    Optional<SupplierProfile> findById(Long id);
 
-    public List<SupplierProfile> getAllSuppliers() {
-        return repository.findAll();
-    }
+    void deleteById(Long id);
 }
-

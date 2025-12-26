@@ -1,33 +1,16 @@
 package com.example.demo.service;
 
 import com.example.demo.model.DeliveryRecord;
-import com.example.demo.repository.DeliveryRecordRepository;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class DeliveryRecordService {
+public interface DeliveryRecordService {
 
-    private final DeliveryRecordRepository repository;
+    DeliveryRecord save(DeliveryRecord record);
 
-    public DeliveryRecordService(DeliveryRecordRepository repository) {
-        this.repository = repository;
-    }
+    List<DeliveryRecord> findAll();
 
-    public List<DeliveryRecord> getAll() {
-        return repository.findAll();
-    }
+    Optional<DeliveryRecord> findById(Long id);
 
-    public Optional<DeliveryRecord> getById(Long id) {
-        return repository.findById(id);
-    }
-
-    public DeliveryRecord save(DeliveryRecord record) {
-        return repository.save(record);
-    }
-
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
+    void deleteById(Long id);
 }

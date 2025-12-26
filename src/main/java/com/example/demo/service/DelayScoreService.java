@@ -1,33 +1,16 @@
 package com.example.demo.service;
 
 import com.example.demo.model.DelayScoreRecord;
-import com.example.demo.repository.DelayScoreRecordRepository;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class DelayScoreService {
+public interface DelayScoreService {
 
-    private final DelayScoreRecordRepository repository;
+    DelayScoreRecord save(DelayScoreRecord record);
 
-    public DelayScoreService(DelayScoreRecordRepository repository) {
-        this.repository = repository;
-    }
+    List<DelayScoreRecord> findAll();
 
-    public List<DelayScoreRecord> getAll() {
-        return repository.findAll();
-    }
+    Optional<DelayScoreRecord> findById(Long id);
 
-    public Optional<DelayScoreRecord> getById(Long id) {
-        return repository.findById(id);
-    }
-
-    public DelayScoreRecord save(DelayScoreRecord record) {
-        return repository.save(record);
-    }
-
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
+    void deleteById(Long id);
 }
