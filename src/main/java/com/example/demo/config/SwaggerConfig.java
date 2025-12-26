@@ -1,20 +1,28 @@
 package com.example.demo.config;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.*;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI openAPI() {
         return new OpenAPI()
-                // You need to change the port as per your server
-                .servers(List.of(
-                        new Server().url("https://9034.pro604cr.amypo.ai/")
-                ));
-        }
+                .info(new Info()
+                        .title("Supply Chain Weak Link Analyzer API")
+                        .version("1.0.0")
+                        .description("API for supplier, PO, delivery, delay score and risk alert management"))
+                .addSecurityItem(new SecurityRequirement().addList("JWT"))
+                .components(new Components()
+                        .addSecuritySchemes("JWT",
+                                new SecurityScheme()
+                                        .name("Authorization")
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")));
+    }
 }

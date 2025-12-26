@@ -3,10 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.model.SupplierRiskAlert;
 import com.example.demo.service.SupplierRiskAlertService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/supplier-risk-alerts")
+@RequestMapping("/api/risk-alerts")
 public class SupplierRiskAlertController {
 
     private final SupplierRiskAlertService service;
@@ -15,31 +16,31 @@ public class SupplierRiskAlertController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<SupplierRiskAlert> getAll() {
-        return service.getAll();
+    @PostMapping
+    public SupplierRiskAlert create(@RequestBody SupplierRiskAlert a) {
+        return service.createAlert(a);
+    }
+
+    @PutMapping("/{id}/resolve")
+    public SupplierRiskAlert resolve(@PathVariable Long id) {
+        return service.resolveAlert(id);
+    }
+
+    @GetMapping("/supplier/{supplierId}")
+    public List<SupplierRiskAlert> bySupplier(@PathVariable Long supplierId) {
+        return service.getAlertsBySupplier(supplierId);
     }
 
     @GetMapping("/{id}")
-    public SupplierRiskAlert getById(@PathVariable Long id) {
-        return service.getById(id).orElseThrow(() -> new RuntimeException("SupplierRiskAlert not found"));
+    public SupplierRiskAlert get(@PathVariable Long id) {
+        return service.getAllAlerts().stream()
+                .filter(a -> a.getId().equals(id))
+                .findFirst()
+                .orElseThrow();
     }
 
-    @PostMapping
-    public SupplierRiskAlert create(@RequestBody SupplierRiskAlert alert) {
-        return service.save(alert);
-    }
-
-    @PutMapping("/{id}")
-    public SupplierRiskAlert update(@PathVariable Long id, @RequestBody SupplierRiskAlert alert) {
-        SupplierRiskAlert existing = service.getById(id).orElseThrow(() -> new RuntimeException("SupplierRiskAlert not found"));
-        existing.setSupplierId(alert.getSupplierId());
-        existing.setMessage(alert.getMessage());
-        return service.save(existing);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @GetMapping
+    public List<SupplierRiskAlert> getAll() {
+        return service.getAllAlerts();
     }
 }

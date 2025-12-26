@@ -5,9 +5,10 @@ import com.example.demo.service.PurchaseOrderService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/purchase-orders")
 public class PurchaseOrderController {
 
     private final PurchaseOrderService service;
@@ -16,29 +17,23 @@ public class PurchaseOrderController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<PurchaseOrderRecord> getAll() {
-        return service.getAll();
+    @PostMapping
+    public PurchaseOrderRecord create(@RequestBody PurchaseOrderRecord po) {
+        return service.createPurchaseOrder(po);
+    }
+
+    @GetMapping("/supplier/{supplierId}")
+    public List<PurchaseOrderRecord> bySupplier(@PathVariable Long supplierId) {
+        return service.getPOsBySupplier(supplierId);
     }
 
     @GetMapping("/{id}")
-    public PurchaseOrderRecord getById(@PathVariable Long id) {
-        return service.getById(id);
+    public Optional<PurchaseOrderRecord> get(@PathVariable Long id) {
+        return service.getPOById(id);
     }
 
-    @PostMapping
-    public PurchaseOrderRecord save(@RequestBody PurchaseOrderRecord order) {
-        return service.save(order);
-    }
-
-    @PutMapping("/{id}")
-    public PurchaseOrderRecord update(@PathVariable Long id, @RequestBody PurchaseOrderRecord order) {
-        // ❌ order.setId(id);  ← REMOVE this line
-        return service.save(order);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @GetMapping
+    public List<PurchaseOrderRecord> getAll() {
+        return service.getAllPurchaseOrders();
     }
 }

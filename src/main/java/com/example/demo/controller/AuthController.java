@@ -1,45 +1,43 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.AppUser;
-import com.example.demo.service.AuthService;
+import com.example.demo.repository.AppUserRepository;
+import com.example.demo.security.JwtTokenProvider;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthService service;
+    private final AppUserRepository userRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthController(AuthService service) {
-        this.service = service;
+    public AuthController(AppUserRepository userRepo,
+                          PasswordEncoder passwordEncoder,
+                          JwtTokenProvider jwtTokenProvider) {
+        this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @GetMapping
-    public List<AppUser> getAll() {
-        return service.getAll();
+    @PostMapping("/register")
+    public String register(@RequestBody RegisterRequest req) {
+        AppUser user = new AppUser();
+        user.setEmail(req.getEmail());
+        user.setPassword(passwordEncoder.encode(req.getPassword()));
+        user.setRole(req.getRole());
+
+        userRepo.save(user);
+        return jwtTokenProvider.generateToken(user);
     }
 
-    @GetMapping("/{id}")
-    public AppUser getById(@PathVariable Long id) {
-        return service.getById(id).orElseThrow(() -> new RuntimeException("User not found"));
-    }
-
-    @PostMapping
-    public AppUser create(@RequestBody AppUser user) {
-        return service.save(user);
-    }
-
-    @PutMapping("/{id}")
-    public AppUser update(@PathVariable Long id, @RequestBody AppUser user) {
-        AppUser existing = service.getById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        existing.setUsername(user.getUsername());
-        existing.setPassword(user.getPassword());
-        return service.save(existing);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest req) {
+        AppUser user = userRepo.findByEmail(req.getEmail()).orElseThrow();
+        return jwtTokenProvider.generateToken(user);
     }
 }
