@@ -12,31 +12,46 @@ public class DelayScoreRecord {
 
     private Long supplierId;
     private Long poId;
-    private int delayDays;
-    private String delaySeverity;
-    private double delayScore; // renamed to match getter
+
+    private int score;
+
     private LocalDateTime computedAt = LocalDateTime.now();
 
-    // Default constructor
-    public DelayScoreRecord() {}
+    // ===== GETTERS & SETTERS =====
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public Long getSupplierId() { return supplierId; }
-    public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getPoId() { return poId; }
-    public void setPoId(Long poId) { this.poId = poId; }
+    public Long getSupplierId() {
+        return supplierId;
+    }
 
-    public int getDelayDays() { return delayDays; }
-    public void setDelayDays(int delayDays) { this.delayDays = delayDays; }
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
+    }
 
-    public String getDelaySeverity() { return delaySeverity; }
-    public void setDelaySeverity(String delaySeverity) { this.delaySeverity = delaySeverity; }
+    public Long getPoId() {
+        return poId;
+    }
 
-    public double getDelayScore() { return delayScore; }
-    public void setDelayScore(double delayScore) { this.delayScore = delayScore; }
+    public void setPoId(Long poId) {
+        this.poId = poId;
+    }
 
-    public LocalDateTime getComputedAt() { return computedAt; }
-    public void setComputedAt(LocalDateTime computedAt) { this.computedAt = computedAt; }
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public LocalDateTime getComputedAt() {
+        return computedAt;
+    }
+
+    public void setComputedAt(LocalDateTime computedAt) {
+        this.computedAt = computedAt;
+    }
 }
