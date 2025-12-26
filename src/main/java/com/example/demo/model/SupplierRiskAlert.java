@@ -11,6 +11,7 @@ public class SupplierRiskAlert {
 
     private Long supplierId;
     private boolean resolved;
+    private String message;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -20,4 +21,7 @@ public class SupplierRiskAlert {
 
     public boolean getResolved() { return resolved; }
     public void setResolved(boolean resolved) { this.resolved = resolved; }
+
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
 }
