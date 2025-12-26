@@ -1,15 +1,15 @@
 package com.example.demo.service;
 
-import com.example.demo.model.DelayScore;
+import com.example.demo.model.DelayRecordScore;
 import java.util.List;
 
 public interface DelayRecordScoreService {
 
-    DelayScore computeDelayScore(Long supplierId);
+    DelayRecordScore computeDelayScore(Long supplierId);
 
-    List<DelayScore> getScoresBySupplier(Long supplierId);
+    List<DelayRecordScore> getScoresBySupplier(Long supplierId);
 
-    DelayScore getScoreById(Long id);
+    DelayRecordScore getScoreById(Long id);
 
-    List<DelayScore> getAllScores();
+    List<DelayRecordScore> getAllScores();
 }
