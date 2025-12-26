@@ -1,4 +1,3 @@
-
 package com.example.demo.model;
 
 import jakarta.persistence.*;
@@ -11,16 +10,18 @@ public class DeliveryRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long poId;
-    private int deliveredQuantity;
-    private LocalDate actualDeliveryDate;
+    private String deliveryNumber;
+    private LocalDate deliveryDate;
+    private int delivered;
 
-    public Long getPoId() { return poId; }
-    public void setPoId(Long poId) { this.poId = poId; }
+    public Long getId() { return id; }
 
-    public int getDeliveredQuantity() { return deliveredQuantity; }
-    public void setDeliveredQuantity(int q) { this.deliveredQuantity = q; }
+    public String getDeliveryNumber() { return deliveryNumber; }
+    public void setDeliveryNumber(String deliveryNumber) { this.deliveryNumber = deliveryNumber; }
 
-    public LocalDate getActualDeliveryDate() { return actualDeliveryDate; }
-    public void setActualDeliveryDate(LocalDate d) { this.actualDeliveryDate = d; }
+    public LocalDate getDeliveryDate() { return deliveryDate; }
+    public void setDeliveryDate(LocalDate deliveryDate) { this.deliveryDate = deliveryDate; }
+
+    public int getDelivered() { return delivered; }
+    public void setDelivered(int delivered) { this.delivered = delivered; }
 }

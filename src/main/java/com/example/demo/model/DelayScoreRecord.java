@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class DelayScoreRecord {
@@ -10,48 +9,10 @@ public class DelayScoreRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long supplierId;
-    private Long poId;
+    private int delayScore;
 
-    private int score;
+    public Long getId() { return id; }
 
-    private LocalDateTime computedAt = LocalDateTime.now();
-
-    // ===== GETTERS & SETTERS =====
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public Long getPoId() {
-        return poId;
-    }
-
-    public void setPoId(Long poId) {
-        this.poId = poId;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public LocalDateTime getComputedAt() {
-        return computedAt;
-    }
-
-    public void setComputedAt(LocalDateTime computedAt) {
-        this.computedAt = computedAt;
-    }
+    public int getDelayScore() { return delayScore; }
+    public void setDelayScore(int delayScore) { this.delayScore = delayScore; }
 }
