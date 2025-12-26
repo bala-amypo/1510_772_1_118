@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class DelayScoreRecord {
@@ -10,49 +9,23 @@ public class DelayScoreRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long poId;
     private Long supplierId;
-    private int delayDays;
-    private double delayScore;   // <-- field that controller is calling
-    private LocalDateTime computedAt = LocalDateTime.now();
+    private int score;
+    private String delaySeverity;
 
-    // getters and setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getPoId() { return poId; }
+    public void setPoId(Long poId) { this.poId = poId; }
 
-    public Long getSupplierId() {
-        return supplierId;
-    }
+    public Long getSupplierId() { return supplierId; }
+    public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
 
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
+    public int getScore() { return score; }
+    public void setScore(int score) { this.score = score; }
 
-    public int getDelayDays() {
-        return delayDays;
-    }
-
-    public void setDelayDays(int delayDays) {
-        this.delayDays = delayDays;
-    }
-
-    public double getDelayScore() {  // <-- add this getter
-        return delayScore;
-    }
-
-    public void setDelayScore(double delayScore) {  // <-- add this setter
-        this.delayScore = delayScore;
-    }
-
-    public LocalDateTime getComputedAt() {
-        return computedAt;
-    }
-
-    public void setComputedAt(LocalDateTime computedAt) {
-        this.computedAt = computedAt;
-    }
+    public String getDelaySeverity() { return delaySeverity; }
+    public void setDelaySeverity(String delaySeverity) { this.delaySeverity = delaySeverity; }
 }
