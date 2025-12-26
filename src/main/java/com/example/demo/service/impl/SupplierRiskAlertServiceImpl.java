@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.SupplierRiskAlert;
 import com.example.demo.repository.SupplierRiskAlertRepository;
 import com.example.demo.service.SupplierRiskAlertService;
@@ -22,17 +23,20 @@ public class SupplierRiskAlertServiceImpl implements SupplierRiskAlertService {
     }
 
     @Override
-    public SupplierRiskAlert getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<SupplierRiskAlert> getAllAlerts() {
-        return repository.findAll();
+    public SupplierRiskAlert resolveAlert(Long id) {
+        SupplierRiskAlert alert = repository.findById(id)
+                .orElseThrow(() -> new BadRequestException("Alert not found"));
+        alert.setResolved(true);
+        return repository.save(alert);
     }
 
     @Override
     public List<SupplierRiskAlert> getAlertsBySupplier(Long supplierId) {
         return repository.findBySupplierId(supplierId);
+    }
+
+    @Override
+    public List<SupplierRiskAlert> getAllAlerts() {
+        return repository.findAll();
     }
 }

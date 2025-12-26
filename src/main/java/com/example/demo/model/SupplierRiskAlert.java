@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "supplier_risk_alerts")
@@ -12,22 +11,22 @@ public class SupplierRiskAlert {
     private Long id;
 
     private Long supplierId;
-
-    private String riskType;
-    private String description;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private String alertLevel;
+    private String message;
+    private Boolean resolved = false;
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public Long getSupplierId() { return supplierId; }
     public void setSupplierId(Long supplierId) { this.supplierId = supplierId; }
 
-    public String getRiskType() { return riskType; }
-    public void setRiskType(String riskType) { this.riskType = riskType; }
+    public String getAlertLevel() { return alertLevel; }
+    public void setAlertLevel(String alertLevel) { this.alertLevel = alertLevel; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public Boolean getResolved() { return resolved; }
+    public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }
