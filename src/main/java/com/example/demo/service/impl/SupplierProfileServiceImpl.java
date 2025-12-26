@@ -3,33 +3,31 @@ package com.example.demo.service.impl;
 import com.example.demo.model.SupplierProfile;
 import com.example.demo.repository.SupplierProfileRepository;
 import com.example.demo.service.SupplierProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class SupplierProfileServiceImpl implements SupplierProfileService {
 
-    @Autowired
-    private SupplierProfileRepository supplierProfileRepository;
+    private final SupplierProfileRepository repository;
 
-    @Override
-    public SupplierProfile getSupplierById(long id) {
-        return supplierProfileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Supplier not found with ID: " + id));
+    public SupplierProfileServiceImpl(SupplierProfileRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public SupplierProfile updateSupplierStatus(long id, boolean active) {
-        SupplierProfile supplier = getSupplierById(id);
-        supplier.setActive(active);
-        return supplierProfileRepository.save(supplier);
+    public SupplierProfile createSupplier(SupplierProfile supplier) {
+        return repository.save(supplier);
     }
 
     @Override
-    public SupplierProfile getBySupplierCode(String code) {
-        return supplierProfileRepository.findBySupplierCode(code)
-                .orElseThrow(() -> new RuntimeException("Supplier not found with code: " + code));
+    public SupplierProfile getSupplierById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<SupplierProfile> getAllSuppliers() {
+        return repository.findAll();
     }
 }

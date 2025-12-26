@@ -4,6 +4,10 @@ import com.example.demo.model.SupplierProfile;
 import java.util.List;
 
 public interface SupplierProfileService {
+
     SupplierProfile createSupplier(SupplierProfile supplier);
-    List<SupplierProfile> getAllSuppliers(); // <-- add this
+
+    SupplierProfile getSupplierById(Long id);
+
+    List<SupplierProfile> getAllSuppliers();
 }
