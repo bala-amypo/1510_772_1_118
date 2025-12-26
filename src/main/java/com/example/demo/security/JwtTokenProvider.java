@@ -15,7 +15,7 @@ public class JwtTokenProvider {
     public JwtTokenProvider(String secret, long validityInMs) {
         this.secret = secret;
         this.validityInMs = validityInMs;
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // always secure
     }
 
     public String generateToken(Object user) {
@@ -26,15 +26,18 @@ public class JwtTokenProvider {
                 .setSubject(user.toString())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(key)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
             return true;
-        } catch (JwtException | IllegalArgumentException ex) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
