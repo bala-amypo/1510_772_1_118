@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface DelayScoreService {
 
+    List<DelayScoreRecord> getAll();
+
+    Optional<DelayScoreRecord> getById(Long id);
+
     DelayScoreRecord save(DelayScoreRecord record);
 
-    List<DelayScoreRecord> findAll();
-
-    Optional<DelayScoreRecord> findById(Long id);
-
-    void deleteById(Long id);
+    void delete(Long id);
 }

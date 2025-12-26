@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface SupplierProfileService {
 
-    SupplierProfile save(SupplierProfile supplier);
+    SupplierProfile createSupplier(SupplierProfile supplier);
 
-    List<SupplierProfile> findAll();
+    List<SupplierProfile> getAllSuppliers();
 
-    Optional<SupplierProfile> findById(Long id);
+    Optional<SupplierProfile> getSupplierById(Long id);
 
-    void deleteById(Long id);
+    void deleteSupplier(Long id);
 }
