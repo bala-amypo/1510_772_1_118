@@ -25,4 +25,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public PurchaseOrderRecord createOrder(PurchaseOrderRecord order) {
         return repository.save(order);
     }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
