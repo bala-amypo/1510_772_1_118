@@ -18,22 +18,22 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     @Override
+    public List<PurchaseOrderRecord> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<PurchaseOrderRecord> getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public PurchaseOrderRecord save(PurchaseOrderRecord order) {
         return repository.save(order);
     }
 
     @Override
-    public List<PurchaseOrderRecord> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public Optional<PurchaseOrderRecord> findById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 }

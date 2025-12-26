@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface DeliveryRecordService {
 
+    List<DeliveryRecord> getAll();
+
+    Optional<DeliveryRecord> getById(Long id);
+
     DeliveryRecord save(DeliveryRecord record);
 
-    List<DeliveryRecord> findAll();
-
-    Optional<DeliveryRecord> findById(Long id);
-
-    void deleteById(Long id);
+    void delete(Long id);
 }

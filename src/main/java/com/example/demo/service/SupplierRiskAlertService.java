@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface SupplierRiskAlertService {
 
+    List<SupplierRiskAlert> getAll();
+
+    Optional<SupplierRiskAlert> getById(Long id);
+
     SupplierRiskAlert save(SupplierRiskAlert alert);
 
-    List<SupplierRiskAlert> findAll();
-
-    Optional<SupplierRiskAlert> findById(Long id);
-
-    void deleteById(Long id);
+    void delete(Long id);
 }

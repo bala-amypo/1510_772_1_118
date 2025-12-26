@@ -18,22 +18,22 @@ public class DeliveryRecordServiceImpl implements DeliveryRecordService {
     }
 
     @Override
+    public List<DeliveryRecord> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<DeliveryRecord> getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public DeliveryRecord save(DeliveryRecord record) {
         return repository.save(record);
     }
 
     @Override
-    public List<DeliveryRecord> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public Optional<DeliveryRecord> findById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 }

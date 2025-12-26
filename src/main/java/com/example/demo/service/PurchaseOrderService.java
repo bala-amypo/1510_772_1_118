@@ -6,12 +6,11 @@ import java.util.Optional;
 
 public interface PurchaseOrderService {
 
+    List<PurchaseOrderRecord> getAll();
+
+    Optional<PurchaseOrderRecord> getById(Long id);
+
     PurchaseOrderRecord save(PurchaseOrderRecord order);
 
-    List<PurchaseOrderRecord> findAll();
-
-    Optional<PurchaseOrderRecord> findById(Long id);
-
-    void deleteById(Long id);
+    void delete(Long id);
 }
-
