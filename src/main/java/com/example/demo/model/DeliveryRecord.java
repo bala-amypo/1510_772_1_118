@@ -1,29 +1,52 @@
 package com.example.demo.model;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "delivery_records")
 public class DeliveryRecord {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long poId;
-    private LocalDate actualDeliveryDate;
-    private Integer deliveredQuantity;
-    private String notes;
+
+    @Column(nullable = false)
+    private Long supplierId;
+
+    @Column(nullable = false)
+    private Integer delayDays;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public DeliveryRecord() {}
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public DeliveryRecord(Long supplierId, Integer delayDays) {
+        this.supplierId = supplierId;
+        this.delayDays = delayDays;
+    }
 
-    public Long getPoId() { return poId; }
-    public void setPoId(Long poId) { this.poId = poId; }
+    public Long getId() {
+        return id;
+    }
 
-    public LocalDate getActualDeliveryDate() { return actualDeliveryDate; }
-    public void setActualDeliveryDate(LocalDate actualDeliveryDate) { this.actualDeliveryDate = actualDeliveryDate; }
+    public Long getSupplierId() {
+        return supplierId;
+    }
 
-    public Integer getDeliveredQuantity() { return deliveredQuantity; }
-    public void setDeliveredQuantity(Integer deliveredQuantity) { this.deliveredQuantity = deliveredQuantity; }
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
+    }
 
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
+    public Integer getDelayDays() {
+        return delayDays;
+    }
+
+    public void setDelayDays(Integer delayDays) {
+        this.delayDays = delayDays;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }
