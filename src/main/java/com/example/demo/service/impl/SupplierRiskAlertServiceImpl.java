@@ -18,22 +18,22 @@ public class SupplierRiskAlertServiceImpl implements SupplierRiskAlertService {
     }
 
     @Override
+    public List<SupplierRiskAlert> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<SupplierRiskAlert> getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public SupplierRiskAlert save(SupplierRiskAlert alert) {
         return repository.save(alert);
     }
 
     @Override
-    public List<SupplierRiskAlert> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public Optional<SupplierRiskAlert> findById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 }
