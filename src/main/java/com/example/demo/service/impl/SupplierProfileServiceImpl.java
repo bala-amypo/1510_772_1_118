@@ -4,6 +4,7 @@ import com.example.demo.model.SupplierProfile;
 import com.example.demo.repository.SupplierProfileRepository;
 import com.example.demo.service.SupplierProfileService;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class SupplierProfileServiceImpl implements SupplierProfileService {
@@ -16,9 +17,11 @@ public class SupplierProfileServiceImpl implements SupplierProfileService {
 
     @Override
     public SupplierProfile createSupplier(SupplierProfile supplier) {
-        // Save supplier to DB
         return repository.save(supplier);
     }
 
-    // Other service methods if needed
+    @Override
+    public List<SupplierProfile> getAllSuppliers() { // <-- implement method
+        return repository.findAll();
+    }
 }

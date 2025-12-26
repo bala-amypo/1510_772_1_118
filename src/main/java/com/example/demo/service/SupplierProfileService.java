@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.SupplierProfile;
+import java.util.List;
 
 public interface SupplierProfileService {
-    
-    // Method to create a supplier
     SupplierProfile createSupplier(SupplierProfile supplier);
-
-    // You can add other methods here
+    List<SupplierProfile> getAllSuppliers(); // <-- add this
 }
