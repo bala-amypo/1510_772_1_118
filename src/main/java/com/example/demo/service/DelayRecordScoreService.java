@@ -3,7 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.DelayScore;
 import java.util.List;
 
-public interface DelayScoreService {
+public interface DelayRecordScoreService {
 
     DelayScore computeDelayScore(Long supplierId);
 
