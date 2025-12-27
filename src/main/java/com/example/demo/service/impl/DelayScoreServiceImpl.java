@@ -34,7 +34,7 @@ public class DelayScoreServiceImpl implements DelayScoreService {
     @Override
     public DelayScoreRecord computeDelayScore(Long poId) {
         PurchaseOrderRecord po = poRepository.findById(poId)
-                .orElseThrow(() -> new ResourceNotFoundException("PO not found"));
+                .orElseThrow(() -> new BadRequestException("PO not found"));
 
         SupplierProfile supplier = supplierProfileRepository.findById(po.getSupplierId())
                 .orElseThrow(() -> new BadRequestException("Supplier not found"));
@@ -44,12 +44,12 @@ public class DelayScoreServiceImpl implements DelayScoreService {
         }
 
         List<DeliveryRecord> deliveries = deliveryRepository.findByPoId(poId);
-        if (deliveries.isEmpty()) {
+        if (deliveries == null || deliveries.isEmpty()) {
             throw new BadRequestException("No deliveries found for PO");
         }
 
-        // Use the first delivery recorded for basic calculation (or latest per requirements)
-        DeliveryRecord delivery = deliveries.get(0);
+        // Logic uses the latest delivery per rules
+        DeliveryRecord delivery = deliveries.get(deliveries.size() - 1);
         long delayDays = ChronoUnit.DAYS.between(po.getPromisedDeliveryDate(), delivery.getActualDeliveryDate());
 
         DelayScoreRecord record = new DelayScoreRecord();
@@ -57,25 +57,27 @@ public class DelayScoreServiceImpl implements DelayScoreService {
         record.setSupplierId(po.getSupplierId());
         record.setDelayDays((int) delayDays);
 
-        // Map Severity and Scores (Requirement 6.4 and Test 60/61)
+        // Map Severity (Requirement 2.4)
         if (delayDays <= 0) {
             record.setDelaySeverity("ON_TIME");
-            record.setScore(100.0);
         } else if (delayDays <= 3) {
             record.setDelaySeverity("MINOR");
-            record.setScore(75.0);
         } else if (delayDays <= 7) {
             record.setDelaySeverity("MODERATE");
-            record.setScore(50.0);
         } else {
             record.setDelaySeverity("SEVERE");
-            record.setScore(0.0);
-            
-            // Requirement 6.4: Trigger alert if SEVERE
+        }
+
+        // Calculate Score (Requirement 2.4/5)
+        double score = 100.0 - (delayDays * 5.0);
+        record.setScore(Math.max(0.0, score));
+
+        // Requirement 6.4: Trigger alert if SEVERE
+        if ("SEVERE".equals(record.getDelaySeverity())) {
             SupplierRiskAlert alert = new SupplierRiskAlert();
             alert.setSupplierId(po.getSupplierId());
             alert.setAlertLevel("HIGH");
-            alert.setDescription("Severe delivery delay on PO: " + po.getPoNumber());
+            alert.setDescription("Critical delay detected");
             riskAlertService.createAlert(alert);
         }
 
