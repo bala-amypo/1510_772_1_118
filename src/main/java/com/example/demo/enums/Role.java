@@ -1,6 +1,7 @@
 package com.example.demo.enums;
 
 public enum Role {
-    ADMIN, ANALYST, MANAGER
+    ADMIN,
+    MANAGER,
+    ANALYST
 }
-
