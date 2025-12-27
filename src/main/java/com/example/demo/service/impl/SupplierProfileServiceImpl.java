@@ -4,35 +4,32 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.SupplierProfile;
 import com.example.demo.repository.SupplierProfileRepository;
 import com.example.demo.service.SupplierProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class SupplierProfileServiceImpl implements SupplierProfileService {
 
-    private final SupplierProfileRepository supplierProfileRepository;
-
-    // Use constructor injection as per Requirement 6.1
-    public SupplierProfileServiceImpl(SupplierProfileRepository supplierProfileRepository) {
-        this.supplierProfileRepository = supplierProfileRepository;
-    }
-
+    @Autowired
+    private SupplierProfileRepository supplierProfileRepository;
     @Override
-    public SupplierProfile getSupplierById(Long id) {
-        return supplierProfileRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found with id: " + id));
-    }
+   public SupplierProfile getSupplierById(Long id) {
+    return supplierProfileRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Supplier not found"));
+}
 
-    @Override
-    public SupplierProfile createSupplier(SupplierProfile supplier) {
-        // Optional: Check for duplicate code if repository is stubbed
-        return supplierProfileRepository.save(supplier);
-    }
 
     @Override
     public List<SupplierProfile> getAllSuppliers() {
         return supplierProfileRepository.findAll();
+    }
+
+    @Override
+    public SupplierProfile createSupplier(SupplierProfile supplier) {
+        return supplierProfileRepository.save(supplier);
     }
 
     @Override
@@ -47,3 +44,5 @@ public class SupplierProfileServiceImpl implements SupplierProfileService {
         return supplierProfileRepository.findBySupplierCode(supplierCode);
     }
 }
+
+
