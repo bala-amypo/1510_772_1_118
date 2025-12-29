@@ -1,17 +1,17 @@
-package com.example.demo.config;
+// package com.example.demo.config;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.servers.Server;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+// import io.swagger.v3.oas.models.OpenAPI;
+// import io.swagger.v3.oas.models.info.Info;
+// import io.swagger.v3.oas.models.security.SecurityRequirement;
+// import io.swagger.v3.oas.models.security.SecurityScheme;
+// import io.swagger.v3.oas.models.servers.Server;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class SwaggerConfig {
+// @Configuration
+// public class SwaggerConfig {
 
-    public static final String SECURITY_SCHEME_NAME = "bearerAuth";
+//     public static final String SECURITY_SCHEME_NAME = "bearerAuth";
 
 //     @Bean
 //     public OpenAPI openAPI() {
@@ -36,32 +36,44 @@ public class SwaggerConfig {
 //                                 )
 //                 );
 //     }
+// }
 
 
+package com.example.demo.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SwaggerConfig {
+
+    public static final String SECURITY_SCHEME_NAME = "bearerAuth";
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                // 1. Disable CSRF (Must be disabled for REST APIs to allow POST requests)
-                .csrf(csrf -> csrf.disable())
-
-                // 2. Set session to stateless (Since you are using JWT)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                // 3. Define which URLs are public and which are private
-                .authorizeHttpRequests(auth -> auth
-                        // Allow anyone to Register or Login
-                        .requestMatchers("/auth/**").permitAll()
-                        
-                        // Allow access to Swagger UI and API Docs
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        
-                        // Any other request requires the JWT token
-                        .anyRequest().authenticated()
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Supply Chain Weak Link Analyzer")
+                        .version("1.0")
+                        .description("JWT-secured Supply Chain Analytics API")
                 )
-                .build();
+                .addServersItem(new Server().url("https://9034.pro604cr.amypo.ai/"))
+                .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME))
+                .components(
+                        new io.swagger.v3.oas.models.Components()
+                                .addSecuritySchemes(
+                                        SECURITY_SCHEME_NAME,
+                                        new SecurityScheme()
+                                                .name(SECURITY_SCHEME_NAME)
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
+                                )
+                );
     }
 }
-
-
